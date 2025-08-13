@@ -12,6 +12,5 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
       - name: Say Hello
         run: echo "Hello from GitHub Actions!"
