@@ -6,7 +6,7 @@ on:
       - main  # Only run when pushing to main branch
 
 jobs:
-  greet:
+  greetings:
     runs-on: ubuntu-latest
 
     steps:
