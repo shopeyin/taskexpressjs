@@ -1,5 +1,6 @@
-name: Task CI Pipeline
+name: Task CI/CD Pipeline
 
+# Trigger on pushes and PRs to main
 on:
   push:
     branches: [main]
@@ -8,7 +9,7 @@ on:
 
 jobs:
   test-and-deploy:
-    name: task-api-job
+    name: Test and Deploy API
     runs-on: ubuntu-latest
 
     steps:
@@ -31,10 +32,11 @@ jobs:
       - name: Run tests
         run: npm test
 
-      # 5️⃣ Deploy to Render (only on pushes to main)
+      # 5️⃣ Deploy to Render (only if tests pass and branch is main)
       - name: Deploy to Render
-        if: github.ref == 'refs/heads/main'
+        if: ${{ success() && github.ref == 'refs/heads/main' }}
         run: |
+          echo "✅ Tests passed. Deploying to Render..."
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
             -H "Content-Type: application/json" \
