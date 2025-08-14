@@ -1,16 +1,31 @@
-name: Say Hello
+name: Task CI Pipeline
 
-on: 
-  push:  # Trigger on any push
-    branches:
-      - main  # Only run when pushing to main branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  greetings:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      # 1️⃣ Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions!"
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4️⃣ Run tests
+      - name: Run tests
+        run: npm test
