@@ -1,5 +1,6 @@
 name: Task CI/CD Pipeline
 
+# Trigger on pushes and PRs to main
 on:
   push:
     branches: [main]
@@ -7,25 +8,34 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Run Tests
+  test-and-deploy:
+    name: Test and Deploy API
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      # 1️⃣ Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: npm
-      - run: npm install
-      - run: npm test  # This MUST pass for deploy to run
 
-  deploy:
-    name: Deploy to Render
-    needs: test        # Explicitly depend on test job
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4️⃣ Run tests
+      - name: Run tests
+        run: npm test
+
+      # 5️⃣ Deploy to Render (only if tests pass and branch is main)
+      - name: Deploy to Render
+        if: success()
+        run: |
           echo "✅ Tests passed. Deploying to Render..."
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
