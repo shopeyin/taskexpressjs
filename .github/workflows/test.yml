@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: task-api-job
     runs-on: ubuntu-latest
 
     steps:
