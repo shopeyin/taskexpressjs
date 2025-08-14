@@ -110,7 +110,7 @@ describe("Task API (In-Memory DB)", () => {
     });
     // console.log(res.body.data);
     expect(res.statusCode).toBe(201);
-    expect(res.body.data.title).toBe("Book Makeup appointments");
+    expect(res.body.data.title).toBe("Book Makeup appointment");
     createdTaskId = res.body.data._id;
   });
 
