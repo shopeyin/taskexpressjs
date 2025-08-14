@@ -113,7 +113,6 @@ describe("Task API (In-Memory DB)", () => {
     expect(res.body.data.title).toBe("Book Makeup appointmentss");
     createdTaskId = res.body.data._id;
   });
-
   it("should fetch all tasks", async () => {
     const task = await Task.create({
       title: "Single Task",
