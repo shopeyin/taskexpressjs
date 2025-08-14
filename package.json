@@ -2,11 +2,12 @@
   "name": "caseworker",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "jest --runInBand --detectOpenHandles",
-    "start:dev": "nodemon server.js",
-    "start:prod": "cross-env NODE_ENV=production nodemon server.js"
-  },
+ "scripts": {
+  "start": "cross-env NODE_ENV=production node server.js",
+  "start:dev": "nodemon server.js",
+  "start:prod": "cross-env NODE_ENV=production nodemon server.js",
+  "test": "jest --runInBand --detectOpenHandles"
+},
   "author": "",
   "license": "ISC",
   "description": "",

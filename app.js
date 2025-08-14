@@ -6,6 +6,8 @@ const app = express();
 if (process.env.NODE_ENV === "development") {
   console.log("IN DEVELOPMENT");
   app.use(logger("dev"));
+} else {
+  console.log("IN PRODUCTION");
 }
 
 app.use(express.json());
