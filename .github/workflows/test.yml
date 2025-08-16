@@ -34,6 +34,7 @@ jobs:
 
       # 5️⃣ Deploy to Render (only if tests pass and branch is main)
       - name: Deploy to Render
+        if: success()
         run: |
           echo "✅ Tests passed. Deploying to Render..."
           curl -X POST \
