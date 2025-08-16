@@ -14,8 +14,8 @@ app.use(express.json());
 
 app.use("/api/v1/tasks", tasksRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the Home Page!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Welcome to the Home Page!");
+// });
 
 module.exports = app;

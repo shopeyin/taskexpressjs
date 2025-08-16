@@ -27,6 +27,10 @@ exports.getATask = async (req, res) => {
   }
 };
 
+exports.testTask = async (req, res) => {
+  res.send("Welcome to the Task Page!");
+};
+
 exports.createATask = async (req, res) => {
   try {
     const task = await Task.create(req.body);

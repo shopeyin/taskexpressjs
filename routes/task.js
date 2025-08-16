@@ -2,6 +2,9 @@ const express = require("express");
 const taskController = require("./../controllers/taskController");
 const router = express.Router();
 
+// 1️⃣ Static routes first
+router.route("/test/abc").get(taskController.testTask);
+
 router
   .route("/")
   .get(taskController.getAllTasks)
