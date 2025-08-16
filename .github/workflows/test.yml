@@ -48,4 +48,4 @@ jobs:
                 "DB_PASSWORD": "${{ secrets.DB_PASSWORD }}"
               }
             }' \
-            https://api.render.com/deploy
+            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
