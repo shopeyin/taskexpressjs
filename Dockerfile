@@ -1,6 +1,13 @@
 # Use official Node.js LTS image
 FROM node:20-slim
 
+# Install required system libraries
+RUN apt-get update && apt-get install -y \
+    curl \
+    libcurl4 \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set working directory inside the container
 WORKDIR /app
 
@@ -8,14 +15,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install 
+RUN npm install
 
-
-# Copy the rest of the app
+# Copy the rest of the application
 COPY . .
 
-# Expose the port the app runs on
+# Expose port
 EXPOSE 3000
 
-# Environment variables will be passed during run
-CMD ["node", "server.js"]
+# Start the app
+CMD ["npm", "start"]
