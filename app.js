@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === "development") {
 //comment
 app.use(express.json());
 
-app.use("/api/v1/task", tasksRoutes);
+app.use("/api/v1/tasks", tasksRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Home Page!");
+});
 
 module.exports = app;
