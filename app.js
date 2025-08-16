@@ -12,6 +12,6 @@ if (process.env.NODE_ENV === "development") {
 //comment
 app.use(express.json());
 
-app.use("/api/v1/tasks", tasksRoutes);
+app.use("/api/v1/task", tasksRoutes);
 
 module.exports = app;
