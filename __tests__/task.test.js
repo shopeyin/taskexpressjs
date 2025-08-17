@@ -122,7 +122,7 @@ describe("Task API (In-Memory DB)", () => {
     const res = await request(app).get("/api/v1/tasks");
     //console.log(res.body.data);
     expect(res.statusCode).toBe(200);
-    expect(res.body.success).toBe(true);
+    expect(res.body.success).toBe("true");
     expect(res.body.data.length).toBe(1); // only the fresh task
   });
 

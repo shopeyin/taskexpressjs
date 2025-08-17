@@ -5,7 +5,7 @@ exports.getAllTasks = async (req, res) => {
     const tasks = await Task.find().sort({ dueDateTime: 1 });
     res
       .status(200)
-      .json({ success: true, totalTasks: tasks.length, data: tasks });
+      .json({ success: "true", totalTasks: tasks.length, data: tasks });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
@@ -28,7 +28,7 @@ exports.getATask = async (req, res) => {
 };
 
 exports.testTask = async (req, res) => {
-  res.send("Welcome to the Task!");
+  res.send("Welcome to the Task Page!");
 };
 
 exports.createATask = async (req, res) => {
