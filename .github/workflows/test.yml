@@ -34,17 +34,7 @@ jobs:
 
       - name: Deploy to Render with commit-specific image
         if: github.ref == 'refs/heads/main' && success()
+        env: 
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "image": "${{ secrets.DOCKER_USERNAME }}/task-api:${{ github.sha }}",
-              "envVars": {
-                "NODE_ENV": "production",
-                "PORT": "3000",
-                "DB_USERNAME": "${{ secrets.DB_USERNAME }}",
-                "DB_PASSWORD": "${{ secrets.DB_PASSWORD }}"
-              }
-            }' \
-            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+           curl "$deploy_url"
