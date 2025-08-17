@@ -28,7 +28,7 @@ exports.getATask = async (req, res) => {
 };
 
 exports.testTask = async (req, res) => {
-  res.send("Welcome to the Task Page!");
+  res.send("Welcome to Barcelona!");
 };
 
 exports.createATask = async (req, res) => {
