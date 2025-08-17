@@ -22,19 +22,17 @@ jobs:
       - name: Build Docker image
         run: |
           docker build --no-cache \
-          -t ${{ secrets.DOCKER_USERNAME }}/task-api:${{ github.sha }} \
-          -t ${{ secrets.DOCKER_USERNAME }}/task-api:latest .
+            -t ${{ secrets.DOCKER_USERNAME }}/task-api:${{ github.sha }} .
 
       - name: Run tests in container
-        run: docker run ${{ secrets.DOCKER_USERNAME }}/task-api:${{ github.sha }} npm test
+        run: docker run --rm ${{ secrets.DOCKER_USERNAME }}/task-api:${{ github.sha }} npm test
 
-      - name: Push Docker images
+      - name: Push Docker image for this commit
         if: github.ref == 'refs/heads/main' && success()
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/task-api:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/task-api:latest
 
-      - name: Deploy to Render
+      - name: Deploy to Render with commit-specific image
         if: github.ref == 'refs/heads/main' && success()
         run: |
           curl -X POST \
