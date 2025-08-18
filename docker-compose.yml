@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .  # Uses your existing Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE=mongodb://mongo:27017/taskdb
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+    volumes:
+      - ./:/app  # Sync local code for live reload
+      - /app/node_modules  # Avoid host/container conflicts
+
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db  # Persist DB data
+
+volumes:
+  mongodb_data:

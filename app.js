@@ -15,7 +15,7 @@ app.use(express.json());
 app.use("/api/v1/tasks", tasksRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to a Leo Messi page!");
+  res.send("Welcome to a Barcelona page!");
 });
 
 module.exports = app;
