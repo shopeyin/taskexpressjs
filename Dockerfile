@@ -1,5 +1,4 @@
-# Use official Node.js LTS image
-FROM node:20-slim
+FROM node:24-alpine
 
 # Install required system libraries
 RUN apt-get update && apt-get install -y \
