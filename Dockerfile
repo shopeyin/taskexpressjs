@@ -1,19 +1,38 @@
-FROM node:24-alpine
+# ==============================
+# Stage 1: Build Stage
+# ==============================
+# Use a small Node.js image for building
+FROM node:24-alpine AS builder
 
-# Set working directory inside the container
+# Set working directory inside container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first (for caching dependencies)
+# Copy only package files first for caching
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install only production dependencies (faster & smaller)
+RUN npm ci --only=production
 
-# Copy the rest of the application
+# Copy the rest of the application source code
 COPY . .
 
-# Expose port
+# ==============================
+# Stage 2: Production Stage
+# ==============================
+# Use a fresh small Node.js image for runtime
+FROM node:24-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy production dependencies and source from builder stage
+COPY --from=builder /app ./
+
+# Expose port (match your app)
 EXPOSE 3000
 
+# Use environment variable for NODE_ENV
+ENV NODE_ENV=production
+
 # Start the app
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
